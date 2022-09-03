@@ -52,6 +52,9 @@
 						class (OOP面向对象的三大特性) 
 							封装、继承、多态
 						interface 接口
+	
+	课程地址：
+		https://www.bilibili.com/video/BV1MZ4y157EP?p=17&vd_source=b67f9398d85e7e297041f47a430b16cb
 */
 
 //记得注解都要小写！！
@@ -328,6 +331,7 @@ let test12:(a:number, b:number) => number = function(a,b){
 
 
 
+
 //⚡️十三、函数的 this 指向问题
 //默认箭头函数的 this 指向, 这里不写 this 指向 也会进行默认的类型推断
 let deck = {
@@ -392,7 +396,7 @@ let pickedCard2 = cardPicker()
 
 
 
-//⚡️十三、重载
+//⚡️十三、函数的重载
 //反转函数 [1,2,3] -> [3,2,1]
 
 //🌟重载的写法(重载是为了让表意更清晰,不改变实际的实现写法)：
@@ -417,6 +421,16 @@ console.log(reverse('123'))
 
 
 //⚡️十四、类
+/*
+	ts 类知识汇总
+		 类的注解：	  注解静态属性、注解构造函数的参数、注解原型方法
+		 类的继承：   子类的 super()
+		 类的封装：   几种修饰符
+		 类的存储器： get set 方法
+		 抽象类：	 父类公共方法的抽象，子类需要去实现它
+		 高级技巧：  类的‘类型’ ，接口可以去继承类
+
+*/ 
 //🌟基础类的注解 —— 父类
 class Animal {
 	catcall: string //实例属性，需要注解
@@ -452,7 +466,7 @@ console.log(newDog.greet())
 
 
 //🌟例子2 ————————————————————————————————————————————————————————————
-//基类
+//父类 != 基类！
 class Animal2 {
 	name: string
 
@@ -506,14 +520,22 @@ ghijk.say()
 
 
 //⚡️十四、类的修饰符（通过修饰符的方式实现类的封装）
-/*🔥三个修饰符 
-	公共：  public   	自身可调用  子类可调用  实例可调用
-	保护：  protected  自身可调用  子类可调用  实例不可调用
-	私有：  private    自身可调用  子类不可调用  实例不可调用
+/*🔥修饰符 
+		能否访问
+	 		公共:  public   	自身可调用  子类可调用  实例可调用
+	 		保护:  protected  自身可调用  子类可调用  实例不可调用
+			私有:  private    自身可调用  子类不可调用  实例不可调用
+
+		能否修改
+	 		只读: readonly   只读属性, 放在 publish 后方, 只能出现在【属性】当中（修饰属性）, 不能出现在【方法】当中（修饰方法）
+
+		参数属性（简化的写法）
+			constructor(private name: string)
 */
 class Animal3 {
-	public name:string
-	public constructor(name: string){
+	public readonly name:string
+	
+	public constructor(name: string){ //方法
 		this.name = name
 	}
 	protected move(distance: number) { //让子类可调用
@@ -521,10 +543,12 @@ class Animal3 {
 	}
 }
 
+
 class skasakl extends Animal3 {
 	constructor(name: string){
 		super(name)
 	}
+	
 	move(distance = 20){
 		super.move(distance) //子类可调用
 	}
@@ -532,3 +556,241 @@ class skasakl extends Animal3 {
 
 let jake = new Animal3('jake')
 // jake.move(10) //实例不可调用
+
+
+
+
+//私有属性, 这种写法等于下面👇的写法(当参数一致的情况, 比如name 一致, 就可以简写为下面的方式)
+class Animal5 {
+	constructor(private name: string){ //私有的构造函数, 以及私有的参数属性
+		console.log(this.name)
+	}
+}
+
+//私有属性, 这种写法等于上面👆的写法
+class Animal6 {
+	private name:string
+	constructor(name: string){
+		this.name = name
+	}
+}
+
+
+
+
+
+//⚡️十五、对象存取器(🔥🔥get、set)
+/*
+	场景: 
+			检查用户密码是否正确再允许其修改信息
+		
+	🔥🔥两个组合方法，get 和 set:
+			当实例通过 .fullName 调用时，会自动调用 get 和 set 方法
+
+			get:
+				取值函数
+			set:
+				存值函数
+*/
+
+let passCode = "secret passCode" //密码
+
+class Employee {
+	private _fullName: string = "John"
+
+	constructor(_fullName: string) {
+		this._fullName = _fullName
+	}
+
+	//🔥🔥两个组合方法，get 和 set, 当实例通过 .fullName 调用时，会自动调用 get 和 set 方法
+	get fullName(): string {
+		return this._fullName
+	}
+
+	set fullName(newName: string) {
+		if(passCode && passCode === "secret passCode"){
+			this._fullName = newName
+		} else {
+			console.log('error')
+		}
+	}
+}
+
+
+let abddee = new Employee("Jimmy")
+console.log(abddee.fullName)  //🔥🔥🔥实际上是调用了 class 内的 get 方法
+abddee.fullName = "Kim"  //🔥🔥🔥实际上是调用了 class 内的 set 方法
+
+
+
+
+
+
+//⚡️十六、静态属性
+class Grid {
+	static origin = {x: 0, y: 0} //🔥🔥🔥静态属性,是在【类】身上, 或者说是在【构造函数】身上，而不是在【实例】身上
+
+	calculate(point: {x:number, y:number}){
+		let xDist = (point.x - Grid.origin.x) //🔥🔥通【类】上来调用 origin 静态属性, 如果是在【实例】身上的话就得用 this 来调用！！
+		let yDist = (point.y - Grid.origin.y)
+		return Math.sqrt(xDist * xDist + yDist * yDist) / this.scale
+	}
+	constructor(public scale: number){}
+}
+
+let grid1 = new Grid(1.0) //1x scale
+
+console.log(grid1.calculate({x:10, y:10}))
+
+
+
+
+//⚡️十七、抽象类(基类), 本质上是个特殊的类, 抽象出父类的【公共方法】
+/* 
+	🔥抽象类无法实例化！
+	🔥抽象类一定要有实现(继承抽象类的子类需要实现的方法，比如【叫法】）！！
+	🔥抽象类可以【规定形状】, 比如会规定【🔥只能有】 name 、pringName()方法、 pringMeeting()方法！！【🔥抽象类中没有的方法都不能自己定义！！】
+	🔥不能读取抽象类的【公共方法】！
+*/
+abstract class Animal7 {
+	abstract makeSound():void  //🔥🔥抽象的【公共方法】比如都会叫, 但【叫法】不一样
+}
+
+
+class Dog2 extends Animal7 {
+	makeSound(): void {   //🔥🔥 在子类上实现独特的【叫法】！！
+		console.log("WangWang")
+	}
+}
+
+
+new Dog2().makeSound()
+
+
+
+
+
+//另一个抽象类的案例 ——————————————————————————————————————————
+abstract class Department {
+	constructor(public name:string){} //可以类比为类的 ()
+	printName(){
+		console.log(this.name) //name = 传入的参数
+	}
+	abstract printMeeting():void //抽象的【公共方法】
+}
+
+
+//子类继承抽象类
+class DesignDep extends Department {
+	constructor(){
+		super('design')
+	}
+	printMeeting(): void {
+		console.log(this.name) //= design
+	}
+}
+
+new DesignDep().printMeeting()
+
+
+let lalala: Department //🔥🔥🔥用抽象类来【规定形状】, 比如会规定【🔥只能有】 name 、pringName()方法、 pringMeeting()方法！！【🔥抽象类中没有的方法都不能自己定义！！】
+
+
+
+
+
+
+
+
+//⚡️十八、高级技巧
+/*
+	定义类的同时也是定义了一种类型
+		比如 class ABC{...}
+		let kk: ABC
+ */
+class ABC {
+	static stand = 'hello'
+	constructor(greeting: string){}
+	greet(){console.log('greettt')}
+}
+
+
+//用类本来来定义类型, 写法一:
+let KKK : ABC		//定义了 KKK 的类型
+KKK = new ABC('haha')  //实例化 KKK
+// console.log(KKK)
+
+
+//用类本来来定义类型, 写法二
+let greet002 : ABC = new ABC('best')
+greet002.greet()
+
+
+//用类的静态方法来定义函数类型:
+let LLL : typeof ABC = ABC   //定义了 LLL 的函数类型
+LLL.stand = "well" //能够直接访问 ABC 类上的 stand 静态方法！！
+// console.log(LLL.stand + "llllll");
+
+
+
+
+
+
+//⚡️十八、interface 接口可以去继承‘类’
+/*
+	interface 属性 （不可夺，不可少，除非👇自定义）
+		可选属性   age? : number
+		任意属性   [propName: string] : any
+		只读属性   readonly
+*/ 
+
+
+//接口继承类
+class Point {
+	x: number
+	y: number
+	constructor(x: number, y: number){
+		this.x = x
+		this.y = y
+	}
+}
+
+interface Point3d extends Point {
+	z: number
+}
+
+let drawObj1: Point3d = {x:1, y:2, z:3}
+
+console.log(drawObj1.x) //1
+console.log(drawObj1.y) //2
+console.log(drawObj1.z) //3
+
+
+
+//🔥自定义接口属性
+interface Person2 {
+	name : string   			//必填属性
+	readonly weight : number  //只读, 必填
+	age? : number 		 //可选属性 (可以少)
+	[propName: string] : any  //任意属性 （可以多）
+}
+
+
+let myObj007 = {name:"Jimmy", weight:120 }
+
+
+function printLabel(obj1: Person2):void {//用接口来定义【参数】的类型
+	console.log(obj1.name, obj1.weight)
+}
+
+printLabel(myObj007)//传入参数
+
+
+
+
+//用范型方式来定义数组
+let add: ReadonlyArray<number> = [1,3,6]
+// add[0] = 12 //会报错，因为是只读的数组
+
+
+

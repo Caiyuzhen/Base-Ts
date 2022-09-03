@@ -193,3 +193,101 @@ class skasakl extends Animal3 {
     }
 }
 let jake = new Animal3('jake');
+class Animal5 {
+    constructor(name) {
+        this.name = name;
+        console.log(this.name);
+    }
+}
+class Animal6 {
+    constructor(name) {
+        this.name = name;
+    }
+}
+let passCode = "secret passCode";
+class Employee {
+    constructor(_fullName) {
+        this._fullName = "John";
+        this._fullName = _fullName;
+    }
+    get fullName() {
+        return this._fullName;
+    }
+    set fullName(newName) {
+        if (passCode && passCode === "secret passCode") {
+            this._fullName = newName;
+        }
+        else {
+            console.log('error');
+        }
+    }
+}
+let abddee = new Employee("Jimmy");
+console.log(abddee.fullName);
+abddee.fullName = "Kim";
+class Grid {
+    constructor(scale) {
+        this.scale = scale;
+    }
+    calculate(point) {
+        let xDist = (point.x - Grid.origin.x);
+        let yDist = (point.y - Grid.origin.y);
+        return Math.sqrt(xDist * xDist + yDist * yDist) / this.scale;
+    }
+}
+Grid.origin = { x: 0, y: 0 };
+let grid1 = new Grid(1.0);
+console.log(grid1.calculate({ x: 10, y: 10 }));
+class Animal7 {
+}
+class Dog2 extends Animal7 {
+    makeSound() {
+        console.log("WangWang");
+    }
+}
+new Dog2().makeSound();
+class Department {
+    constructor(name) {
+        this.name = name;
+    }
+    printName() {
+        console.log(this.name);
+    }
+}
+class DesignDep extends Department {
+    constructor() {
+        super('design');
+    }
+    printMeeting() {
+        console.log(this.name);
+    }
+}
+new DesignDep().printMeeting();
+let lalala;
+class ABC {
+    constructor(greeting) { }
+    greet() { console.log('greettt'); }
+}
+ABC.stand = 'hello';
+let KKK;
+KKK = new ABC('haha');
+let greet002 = new ABC('best');
+greet002.greet();
+let LLL = ABC;
+LLL.stand = "well";
+class Point {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+let drawObj1 = { x: 1, y: 2, z: 3 };
+console.log(drawObj1.x);
+console.log(drawObj1.y);
+console.log(drawObj1.z);
+let myObj007 = { name: "Jimmy", weight: 120 };
+function printLabel(obj1) {
+    console.log(obj1.name, obj1.weight);
+}
+printLabel(myObj007);
+let add = [1, 3, 6];
