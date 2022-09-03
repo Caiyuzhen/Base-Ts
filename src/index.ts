@@ -51,7 +51,7 @@
 						as 类型断言
 						class (OOP面向对象的三大特性) 
 							封装、继承、多态
-						接口
+						interface 接口
 */
 
 //记得注解都要小写！！
@@ -324,3 +324,211 @@ let test11:(a:number, b? :number) => {} = function(a,b){
 let test12:(a:number, b:number) => number = function(a,b){
 	return a + b
 }
+
+
+
+
+//⚡️十三、函数的 this 指向问题
+//默认箭头函数的 this 指向, 这里不写 this 指向 也会进行默认的类型推断
+let deck = {
+	suits: ['hearts', 'spades', 'clubs', 'diamonds'],
+	cards: Array(52),
+	createCardPicker: function() { 
+		// console.log(this)  //this 指向 deck
+		return () => { //🔥改成箭头函数后, 下面的 this 就会指向 deck 了, 因为箭头函数在函数定义时就指向好了
+			let pickedCard = Math.floor(Math.random() * 52)
+			let pickSuit = Math.floor(pickedCard / 13)
+
+			//🔥如果上面返回的不适箭头函数, 那么这里的 this 指向 window 或 undefined, 是因为是看谁掉用这个函数
+			//如果上面是 return 的箭头函数, 那么这里 this 指向的就是 deck
+			return {suit: this.suits[pickSuit], card: pickedCard % 13}
+		}
+	}
+}
+
+let cardPicker = deck.createCardPicker()
+let pickedCard = cardPicker()
+
+// alert("card:" + pickedCard.card + "of" + pickedCard.suit)
+
+
+
+
+//手动通过 interface 的方式, 传入 this 参数来绑定 this 指向
+interface Card {
+	suit: string
+	card: number
+}
+
+interface Deck2 { //描述对象的形状
+	suits: string[]
+	cards: number[]
+	createCardPicker(this: Deck2): () => Card//🔥🔥🔥🔥手动把 this 绑定到 Deck2 上, 返回返回的类型是 Card !!
+}
+
+let deck2: Deck2 = {
+	suits: ['hearts', 'spades', 'clubs', 'diamonds'],
+	cards: Array(52),
+	createCardPicker: function(this) {
+		// console.log(this)  //this 指向 deck
+		return () => { //🔥改成箭头函数后, 下面的 this 就会指向 deck 了, 因为箭头函数在函数定义时就指向好了
+			let pickedCard = Math.floor(Math.random() * 52)
+			let pickSuit = Math.floor(pickedCard / 13)
+
+			//🔥如果上面返回的不适箭头函数, 那么这里的 this 指向 window 或 undefined, 是因为是看谁掉用这个函数
+			//如果上面是 return 的箭头函数, 那么这里 this 指向的就是 deck
+			return {suit: this.suits[pickSuit], card: pickedCard % 13}
+		}
+	}
+}
+
+let cardPicker2 = deck.createCardPicker()
+let pickedCard2 = cardPicker()
+
+// alert("card:" + pickedCard.card + "of" + pickedCard.suit)
+
+
+
+
+
+
+//⚡️十三、重载
+//反转函数 [1,2,3] -> [3,2,1]
+
+//🌟重载的写法(重载是为了让表意更清晰,不改变实际的实现写法)：
+function reverse(x:string) : string  //固定写法, 注意, 不是 => 
+function reverse(x:number) : number  //固定写法, 注意, 不是 => 
+
+
+//🌟一般的写法：
+function reverse(x: string | number){
+	if(typeof x === 'string'){
+		return x.split('').reverse().join('') //把传入的字符串【拆分】，【反转】，再【拼接】
+	}
+	if(typeof x === 'number'){ //如果是 number 类型
+		return Number(x.toString().split('').reverse().join('')) //转为字符串
+	}
+}
+console.log(reverse(123))
+console.log(reverse('123'))
+
+
+
+
+
+//⚡️十四、类
+//🌟基础类的注解 —— 父类
+class Animal {
+	catcall: string //实例属性，需要注解
+
+	constructor(msg: string){ //类的构造函数，需要注解
+		this.catcall = msg
+	}
+
+	greet(){//原型方法,如果有参数也需要注解
+		return "Hello," + this.catcall
+	}
+}
+
+let abckkk = new Animal("啦啦啦啦")
+console.log(abckkk.greet())
+
+
+
+
+//继承类的注解 —— 子类
+class Dog extends Animal {
+	bark() {
+		console.log('唧唧唧')
+	}
+}
+
+let newDog = new Dog("bark")
+newDog.bark()
+console.log(newDog.greet())
+
+
+
+
+
+//🌟例子2 ————————————————————————————————————————————————————————————
+//基类
+class Animal2 {
+	name: string
+
+	constructor(theName: string) {
+		this.name = theName //= 传入的参数
+	}
+
+	move(distance: number = 0){
+		console.log(`${this.name} 可以移动 ${distance}米`)
+		console.log(this.name+'11')
+	}
+
+	say(){
+		console.log(this.name+'22')
+	}
+}
+
+
+
+//派生类中的 super
+class Cat extends Animal2 {
+	//🔥 super 等于父类!!
+	constructor(name: string){
+		super(name) //🔥🔥🔥相当于把父类构造函数的 this.name = theName 继承给子类
+	}
+
+	move(distance = 5){
+		super.move(distance) //🔥🔥🔥相当于把父类构造函数的 move() 原型方法继承给子类
+	}
+
+	say(){
+		super.say() //🔥🔥🔥同上
+	}
+}
+
+
+//实例化派生类
+let abcdef: Animal2 = new Cat('猫咪1')
+console.log(abcdef)
+
+
+let ghijk = new Cat('猫咪2')
+ghijk.move(10)
+
+
+let ghijk2 = new Cat('猫咪3')
+ghijk.say()
+
+
+
+
+
+//⚡️十四、类的修饰符（通过修饰符的方式实现类的封装）
+/*🔥三个修饰符 
+	公共：  public   	自身可调用  子类可调用  实例可调用
+	保护：  protected  自身可调用  子类可调用  实例不可调用
+	私有：  private    自身可调用  子类不可调用  实例不可调用
+*/
+class Animal3 {
+	public name:string
+	public constructor(name: string){
+		this.name = name
+	}
+	protected move(distance: number) { //让子类可调用
+		console.log(distance)
+	}
+}
+
+class skasakl extends Animal3 {
+	constructor(name: string){
+		super(name)
+	}
+	move(distance = 20){
+		super.move(distance) //子类可调用
+	}
+}
+
+let jake = new Animal3('jake')
+// jake.move(10) //实例不可调用

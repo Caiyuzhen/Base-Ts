@@ -93,3 +93,103 @@ let test11 = function (a, b) {
 let test12 = function (a, b) {
     return a + b;
 };
+let deck = {
+    suits: ['hearts', 'spades', 'clubs', 'diamonds'],
+    cards: Array(52),
+    createCardPicker: function () {
+        return () => {
+            let pickedCard = Math.floor(Math.random() * 52);
+            let pickSuit = Math.floor(pickedCard / 13);
+            return { suit: this.suits[pickSuit], card: pickedCard % 13 };
+        };
+    }
+};
+let cardPicker = deck.createCardPicker();
+let pickedCard = cardPicker();
+let deck2 = {
+    suits: ['hearts', 'spades', 'clubs', 'diamonds'],
+    cards: Array(52),
+    createCardPicker: function () {
+        return () => {
+            let pickedCard = Math.floor(Math.random() * 52);
+            let pickSuit = Math.floor(pickedCard / 13);
+            return { suit: this.suits[pickSuit], card: pickedCard % 13 };
+        };
+    }
+};
+let cardPicker2 = deck.createCardPicker();
+let pickedCard2 = cardPicker();
+function reverse(x) {
+    if (typeof x === 'string') {
+        return x.split('').reverse().join('');
+    }
+    if (typeof x === 'number') {
+        return Number(x.toString().split('').reverse().join(''));
+    }
+}
+console.log(reverse(123));
+console.log(reverse('123'));
+class Animal {
+    constructor(msg) {
+        this.catcall = msg;
+    }
+    greet() {
+        return "Hello," + this.catcall;
+    }
+}
+let abckkk = new Animal("啦啦啦啦");
+console.log(abckkk.greet());
+class Dog extends Animal {
+    bark() {
+        console.log('唧唧唧');
+    }
+}
+let newDog = new Dog("bark");
+newDog.bark();
+console.log(newDog.greet());
+class Animal2 {
+    constructor(theName) {
+        this.name = theName;
+    }
+    move(distance = 0) {
+        console.log(`${this.name} 可以移动 ${distance}米`);
+        console.log(this.name + '11');
+    }
+    say() {
+        console.log(this.name + '22');
+    }
+}
+class Cat extends Animal2 {
+    constructor(name) {
+        super(name);
+    }
+    move(distance = 5) {
+        super.move(distance);
+    }
+    say() {
+        super.say();
+    }
+}
+let abcdef = new Cat('猫咪1');
+console.log(abcdef);
+let ghijk = new Cat('猫咪2');
+ghijk.move(10);
+let ghijk2 = new Cat('猫咪3');
+ghijk.say();
+class Animal3 {
+    constructor(name) {
+        this.name = name;
+    }
+    move(distance) {
+        console.log(distance);
+    }
+}
+class skasakl extends Animal3 {
+    constructor(name) {
+        super(name);
+    }
+    move(distance = 20) {
+        super.move(distance);
+    }
+}
+let jake = new Animal3('jake');
