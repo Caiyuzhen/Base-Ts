@@ -91,6 +91,9 @@ let test11 = function (a, b) {
     return { a: 998 };
 };
 let test12 = function (a, b) {
+    return a;
+};
+let testFn08 = function (a, b) {
     return a + b;
 };
 let deck = {
@@ -291,3 +294,25 @@ function printLabel(obj1) {
 }
 printLabel(myObj007);
 let add = [1, 3, 6];
+let mySearch = function (source, subString) {
+    let result = source.search(subString);
+    return result > -1;
+};
+let obj999 = {
+    0: 1,
+    1: 2,
+    2: 3
+};
+let arr888 = [1, 2, 3, 4];
+class Animal999 {
+    constructor(name = 'Bubble') {
+        this.name = name;
+    }
+}
+class Dog999 extends Animal999 {
+    constructor(age = 12) {
+        super();
+        this.age = age;
+    }
+}
+let myArray66 = [1, 2, 3];

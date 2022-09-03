@@ -216,12 +216,12 @@ console.log(test5(10))
 		interface 实例的属性不可多也不可少
 		readonly 表示只读属性
 		可以用 ？, ? 问号表示可选属性，可有可无
-		可以用 [propName: string] : any , 这是固定的写法!! 用来自己加属性*/
+		可以用 [propName: string] : any , 这是固定的写法!! 用来自己加属性，🔥🔥🔥🔥🔥注意是 any 才不会报错，因为 [propName] 权重最大！！*/
 interface Person {
 	readonly id: number  //readonly 表示只读属性
 	name : string
 	age? : number  //？表示可选项 
-	[propName: string] : any //让继承这个借口的对象可以添加额外属性, 🔥注意, 任意属性一定得是 any！
+	[propName: string] : any //让继承这个【接口】的对象可以添加额外属性, 🔥注意, 任意属性一定得是 any！
 }
 
 let person: Person = {
@@ -268,6 +268,13 @@ console.log(list4)
 
 
 //⚡️十三、函数的注解, 注解【参数+返回值】, 函数参数多传少传都会报错
+/*	
+	三种添加注解的方式
+		在函数的参数跟函数体上添加注解
+		通过接口 interface 添加注解
+		抽象出 type 来添加注解
+
+*/
 //写法一：函数声明方式
 
 //要抛出错误的函数
@@ -323,10 +330,17 @@ let test11:(a:number, b? :number) => {} = function(a,b){
 	return {a:998}
 }
 
-//返回一个 number
-let test12:(a:number, b:number) => number = function(a,b){
+//返回一个 boolean
+let test12:(a:boolean, b:boolean) => boolean = function(a,b){
+	return a
+}
+
+//🔥简写的定义【函数表达式】的方式，抽象出参数跟返回值！
+type testArg = (a:string, b:string) => string
+let testFn08 : testArg = function(a:string, b:string): string{
 	return a + b
 }
+
 
 
 
@@ -736,16 +750,29 @@ LLL.stand = "well" //能够直接访问 ABC 类上的 stand 静态方法！！
 
 
 
-//⚡️十八、interface 接口可以去继承‘类’
+//⚡️十八、interface 接口, 接口可以去继承【类】
 /*
-	interface 属性 （不可夺，不可少，除非👇自定义）
+	🌟interface 属性 （不可夺，不可少，除非👇自定义）
 		可选属性   age? : number
 		任意属性   [propName: string] : any
 		只读属性   readonly
+
+	🌟接口类型
+		1.函数类接口
+			interface SearchFunc {
+					(source: string, subString: string) : boolean
+				}
+
+		2.可索引类型接口
+			interface ReadNum {
+					readonly [index: number] : number
+				}
+		3.类类型接口
+				
 */ 
 
 
-//接口继承类
+//🔥🔥用【接口】来继承【类】！！！！！！！！！
 class Point {
 	x: number
 	y: number
@@ -767,7 +794,7 @@ console.log(drawObj1.z) //3
 
 
 
-//🔥自定义接口属性
+//🔥自定义接口属性（接口可以描述对象，函数跟数组都是对象，所以接口可以描述函数跟数组）
 interface Person2 {
 	name : string   			//必填属性
 	readonly weight : number  //只读, 必填
@@ -794,3 +821,102 @@ let add: ReadonlyArray<number> = [1,3,6]
 
 
 
+//🍎用【接口】的方式来描述【函数的类型】, 【🚀🚀🚀】这种该方法最常见
+interface SearchFunc {
+	(source: string, subString: string) : boolean
+}
+
+let mySearch: SearchFunc = function (source: string, subString: string) {
+	let result = source.search(subString)
+	return result > -1
+}
+
+
+//👇以前的方式，函数直接就实现了，没法定义函数类型
+// function mySearch(source: string, subString: string): boolean {
+// 	let result = source.search(subString)
+// 	return result > -1
+// }
+
+
+//👇以前的方式，函数直接就实现了，没法定义函数类型
+// let mySearch: (source: string, subString: string) => boolean = function(source, subString) {
+// 	let result = source.search(subString)
+// 	return result > -1
+// }
+
+
+
+
+//⚡️十九、索引类型（数组）
+/*
+	🌟🌟接口可以描述对象，函数跟数组都是对象，所以接口可以描述函数跟数组
+
+	🌟🌟索引签名（可以类比领导的意思，领导说数据类型都是啥就是啥）
+		[propName: string] : string | number
+*/
+interface NumberArray22 {
+	[index: number]: number 
+}
+
+//描述对象
+let obj999: NumberArray = {
+	0: 1,
+	1: 2,
+	2: 3
+}
+
+//描述数组
+let arr888: NumberArray = [1,2,3,4]
+
+
+//⚠️ 注意，用【类】来描述继承【接口参数】时, 子类别 > 父类别 
+class Animal999 {
+	name: string
+	constructor(name: string = 'Bubble'){
+		this.name = name
+	}
+}
+
+class Dog999 extends Animal999 {
+	constructor(public age : number = 12){ //🔥🔥🔥🔥age 为子类新定义的属性
+		super()
+	}
+}
+// console.log(new Dog999(22))
+
+interface Earth {
+	[x: string]: Animal999 // 不会报错，因为父类有 string
+	[y: number]: Dog999 //number 就不会报错了, 因为子类别 > 父类别 （number 会先被转为 string 再去索引）
+}
+
+
+
+//⚠️ 注意【索引签名】的类型冲突
+interface NunberDic {
+	[index: string] : number //🔥🔥🔥🔥🔥这个是最大权重，相当于规定了里边所有数组的数据类型！！
+	length: number
+	// name: string //⚠️s报错，因为上面的索引值是  :number
+}
+
+interface NumberDic {
+	[propName: string] : string | number //🔥🔥🔥🔥🔥这个是最大权重，相当于规定了里边所有数组的数据类型！！
+	readonly name: string  //同样的也可以添加只读属性！！
+	age: number //🔥🔥🔥因为上面定义了【联合类型】，可以是 number 才不会报错！！
+}
+
+
+
+//🔥🔥可索引类型接口，索引签名也可以不定义参数，索引签名可以设置为只读模式
+interface ReadNum {
+	readonly [index: number] : number
+}
+
+let myArray66:ReadNum = [1,2,3]
+
+// myArray66[0] = 12 //会报错，因为上面只读
+
+
+
+
+//⚡️二十、类的类型
