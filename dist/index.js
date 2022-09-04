@@ -316,3 +316,74 @@ class Dog999 extends Animal999 {
     }
 }
 let myArray66 = [1, 2, 3];
+class Clock {
+    constructor(h, m, currentTime) {
+        this.currentTime = new Date();
+    }
+}
+class Door {
+}
+class SecurityDoor extends Door {
+    alert() {
+        console.log("这是一个安全门");
+    }
+}
+class Car {
+    constructor() {
+        this.color = 'red';
+    }
+    alert() {
+        console.log("这是一个安全车");
+    }
+    lightOn() {
+        console.log("这是一个开灯方法");
+    }
+    lightOff() {
+        console.log("这是一个关灯方法");
+    }
+}
+class Clock2 {
+    constructor(h, m) {
+        this.currentTime = new Date;
+    }
+    getTime() { }
+}
+function createClock(Cl, h, m) {
+    return new Cl(h, m);
+}
+createClock(Clock2, 10, 12);
+let squareABC = {};
+let squareABC2 = {};
+squareABC.color = "bule";
+squareABC.sideLength = 200;
+function isFish(animal) {
+    if (typeof animal.swim === 'function') {
+        return true;
+    }
+    return false;
+}
+let square666 = {};
+square666.color = 'blue';
+square666.penWidth = 10;
+square666.sideLength = 5.0;
+function getCounter() {
+    let counter = function (start) { };
+    counter.interval = 123;
+    counter.reset = function () { };
+    return counter;
+}
+let cc = getCounter();
+cc(10);
+cc.reset();
+cc.interval = 321;
+class Clock22 {
+    constructor(h = 1, m = 2) {
+        this.currentTime = new Date;
+    }
+    static getData() { }
+    getTime() { }
+}
+function createClock22(Cl, h, m) {
+    return new Cl(h, m);
+}
+createClock22(Clock22, 10, 12);
