@@ -387,3 +387,29 @@ function createClock22(Cl, h, m) {
     return new Cl(h, m);
 }
 createClock22(Clock22, 10, 12);
+class Control {
+}
+class Button extends Control {
+    select() {
+        console.log('select');
+    }
+}
+class img1 extends Control {
+}
+class Point2 {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+let ABCDD = {
+    x: 1,
+    y: 2,
+    z: 3
+};
+function indentity(arg) {
+    return arg;
+}
+function indentity2(arg) {
+    return arg;
+}
