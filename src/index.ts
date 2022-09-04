@@ -269,10 +269,11 @@ console.log(list4)
 
 //⚡️十四、函数的注解, 注解【参数+返回值】, 函数参数多传少传都会报错 ————————————————————————————————————————————
 /*	
-	三种添加注解的方式
+	四种添加注解的方式
 		在函数的参数跟函数体上添加注解
 		通过接口 interface 添加注解
 		抽象出 type 来添加注解
+		用范型来注解函数
 
 */
 //写法一：函数声明方式
@@ -1340,6 +1341,7 @@ console.log(indentity3('well'))
 /*🌟场景二: 希望打印出【参数】的length, 因为传入的类型不确定, 所以用范型的写法
 				参数是个【范型数组】, 返回的对象是数组, 所以就一定有 length 属性, 只不过数组的成员不确定
 */
+//👇范型函数的一般写法
 function indentity10<T>(arg: Array<T>): Array<T> {
 	console.log(arg.length)
 	return arg
@@ -1352,19 +1354,44 @@ function indentity10<T>(arg: Array<T>): Array<T> {
 
 
 //范型 & 函数的更多写法
-//👇一般的注解,【函数表达式】的方式
+/*
+	🌟范型函数写法汇总(核心为三种方式)
+		1.函数范型的注解方式: 
+			let a: <X>(arg: X) => X = function(arg){}
+			function<T>(arg: T) : T {}
+
+		2.对象字面量的注解方式: 
+			不抽离出函数
+				let a :{<T>(arg: T) => T } = function(arg){}
+			抽离出函数
+				function abc<T>(argu: T) : T {}
+				let a :{<T>(arg: T) => T } = abc
+
+		3.范型接口的注解方式:
+			不自定义范型(不抽离出函数)
+				interface Inden {
+					<T>(arg: T) : T
+				}
+				let a : Inden = function(arg){}
+			自定义范型(不抽离出函数)
+				interface Inden<T>{
+					(arg: T) : T
+				}
+				let a : Inden<number> = function(arg){}
+*/ 
+//👇一般的函数注解,【函数表达式】的方式
 let indentity4: (arg: number) => number = function(arg){
 	return arg
 }
 
 
-//👇范型函数写法一：用【函数表达式】的方式定义范型函数, 范型的变量可以随便写, 变量不一定是 T, 也可以是 X
+//👇范型注解函数写法一：用【🔥函数表达式】的方式定义范型函数, 范型的变量可以随便写, 变量不一定是 T, 也可以是 X
 let indentity5: <X>(arg: X) => X = function(arg){
 	return arg
 }
 
 
-//👇范型函数写法二：用【对象字面量】的方式定义范型函数, 因为函数也是对象, T 就是范型对象的字面量
+//👇范型注解函数写法二：用【🔥对象字面量】的方式定义范型函数, 因为函数也是对象, T 就是范型对象的字面量
 let indentity6: {<T>(arg: T) : T} = function(arg){
 	return arg
 }
@@ -1378,8 +1405,8 @@ let indentity6: {<T>(arg: T) : T} = function(arg){
 
 
 //范型 & 函数接口
-//👇用【范型接口】的方式来定义【函数表达式】的类型
 
+//👇用【🔥范型接口】的方式来定义【函数表达式】的类型
 //🌟方式一：不改变范型的类型
 interface IndetiterFace {
 	<T>(arg : T) : T  
@@ -1392,7 +1419,7 @@ let indentity7: IndetiterFace = function(arg) {
 
 
 
-//🌟方式二：自定义范型的类型
+//🌟方式二：自定义范型的类型的写法, 比如下面的<string>
 interface IndetiterFace2<T> {
 	(arg : T) : T  //这样结合上面的 <T> 就能自定义范型为 <string> 等
 }
@@ -1405,7 +1432,7 @@ let indentity8: IndetiterFace2<string> = function(arg){
 
 
 
-//🌟方式三：【抽离出函数】的自定义范型的写法
+//🌟方式三：【🔥抽离出函数】的自定义范型的写法
 interface IndetiterFace2<T> {
 	(arg : T) : T  //这样结合上面的 <T> 就能自定义范型为 <string> 等
 }
@@ -1414,7 +1441,7 @@ function inden<U>(arg : U): U {
 	return arg
 }
 
-//👆上面的【函数表达式】可以传入【🔥🔥🔥范型的参数】来规定类型！！
+//👆上面的【函数表达式】可以传入【🔥🔥🔥自定义范型的参数】来规定类型！！
 let indentity9: IndetiterFace2<string> = inden
 
 
