@@ -407,9 +407,38 @@ let ABCDD = {
     y: 2,
     z: 3
 };
+let ab = [1, 2, 3];
+let ac = [1, 2, 3];
 function indentity(arg) {
     return arg;
 }
 function indentity2(arg) {
     return arg;
 }
+function indentity3(arg) {
+    return arg;
+}
+console.log(indentity3('well'));
+function indentity10(arg) {
+    console.log(arg.length);
+    return arg;
+}
+let indentity4 = function (arg) {
+    return arg;
+};
+let indentity5 = function (arg) {
+    return arg;
+};
+let indentity6 = function (arg) {
+    return arg;
+};
+let indentity7 = function (arg) {
+    return arg;
+};
+let indentity8 = function (arg) {
+    return arg;
+};
+function inden(arg) {
+    return arg;
+}
+let indentity9 = inden;
