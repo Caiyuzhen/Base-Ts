@@ -442,3 +442,46 @@ function inden(arg) {
     return arg;
 }
 let indentity9 = inden;
+class GenericNumber {
+}
+let myNum = new GenericNumber();
+myNum.zeroValu = 100;
+myNum.add = (x, y) => {
+    return x + y;
+};
+class MinClass {
+    constructor() {
+        this.list = [];
+    }
+    add(num) {
+        this.list.push(num);
+    }
+    min() {
+        let minNum = this.list[0];
+        for (let i = 0; i < this.list.length; i++) {
+            if (minNum > this.list[i]) {
+                minNum = this.list[i];
+            }
+        }
+        return minNum;
+    }
+}
+function logInden(arg) {
+    console.log(arg.length);
+    return arg;
+}
+function logInde2(arg) {
+    console.log(arg.length);
+    return arg;
+}
+function logInde3(arg) {
+    return arg;
+}
+function logInde4(arg) {
+    return arg;
+}
+function getProperty(obj, key) {
+    return obj[key];
+}
+let xx = { a: 1, b: 2, c: 3, d: 4 };
+console.log(getProperty(xx, 'b'));
