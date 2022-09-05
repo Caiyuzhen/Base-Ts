@@ -1103,6 +1103,7 @@ interface Fish {
 }
 
 function isFish( animal: Cat008 | Fish ) {
+	//🔥🔥typeof 表示判断【Fish】里边的 swim 是个【方法】, 因为 typeof 取的是【键】！！
 	if( typeof (animal as Fish).swim === 'function'){ //🔥🔥断言此对象一定是 Fish 类型
 		return true
 	}
@@ -1252,7 +1253,7 @@ class Point2 {
 	}
 }
 
-interface Point3D extends Point2 {
+interface Point3D extends Point2 {//接口继承类, 增加额外属性
 	z: number
 }
 
@@ -1264,7 +1265,7 @@ interface PointInterface {
 	y: number
 }
 
-interface Point3D2 extends PointInterface {
+interface Point3D2 extends PointInterface { //接口继承接口, 增加额外属性
 	z: number
 }
 
@@ -1500,7 +1501,7 @@ class MinClass<T> {
 
 
 
-//范型约束 & 在范型内使用类型参数(保证范型身上有某些属性)
+//⚡️三十、范型约束 & 在范型内使用类型参数(保证范型身上有某些属性)
 
 //范型约束 
 //场景：要取得 length 值
@@ -1582,3 +1583,87 @@ console.log(getProperty(xx, 'b'))
 
 
 
+
+
+//⚡️三十一、多重范型约束 & 交叉类型
+//& 表示【🔥交叉类型】, 同时具备两种类型的特性！
+
+
+//🌟🌟案例一: 把两个对象上的【属性值】都拷贝到一个【新的对象上】
+function extendsFn<TT, UU>(first:TT, second:UU): TT & UU { //结果是【交叉类型】,也就是做了多重的范型约束
+	//👇类型断言的两个写法
+	// let result = {} as <TT & UU> //写法一
+	let res = <any>{} //写法二
+
+	for(let id in first) {//🔥key 是 id, 【value 值】 是 first[id]
+		//🔥对象上的属性是 any 类型, 
+		(<any> res)[id] = (<any> first)[id] //将第一个 【first 对象】上的【所有属性】都【赋值给 res】
+	}
+	for(let id in second) {
+		if(!res.hasOwnProperty(id)){  //🔥判断 second 对象上的值是否存在于 res 身上
+			(<any> res)[id] = (<any> second)[id]
+		}
+	}
+	return res;
+}
+
+
+
+
+class PersonAB {
+	constructor(public name: string){}
+}
+
+interface Loggable {
+	log(): void //定义类型
+}
+
+class ConsoleLogger implements Loggable { //类去实现接口, 接口是抽象的
+	log() {
+		console.log("登录成功")
+	}
+}
+
+let jim = extendsFn(new PersonAB("jim"), new ConsoleLogger())
+let nnn = jim.name
+// jim.log()
+
+
+
+
+
+
+
+
+//🌟🌟案例二: 利用【多重范型约束】来【🔥整合不同接口下】的【内容】
+interface Sentence {
+	content: string
+	title: string
+}
+
+interface Music {
+	url: string
+}
+
+class QQMusic <T extends Sentence & Music> {
+	props: T
+	constructor(public arg: T) {
+		this.props = arg //props 等于 arg, arg 符合 T 交叉范型, 这个交叉范型的接口有 url , 所以下面可以获得 url!!
+	}
+
+	info() {
+		return {
+			url: this.props.url,
+			content: this.props.content,
+			title: this.props.title
+		}
+	}
+}
+
+const content = {
+	url: 'http://www.abc.com',
+	content: 'a long text',
+	title: 'Well'
+}
+
+console.log(new QQMusic(content).info())

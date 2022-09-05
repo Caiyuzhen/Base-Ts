@@ -485,3 +485,46 @@ function getProperty(obj, key) {
 }
 let xx = { a: 1, b: 2, c: 3, d: 4 };
 console.log(getProperty(xx, 'b'));
+function extendsFn(first, second) {
+    let res = {};
+    for (let id in first) {
+        res[id] = first[id];
+    }
+    for (let id in second) {
+        if (!res.hasOwnProperty(id)) {
+            res[id] = second[id];
+        }
+    }
+    return res;
+}
+class PersonAB {
+    constructor(name) {
+        this.name = name;
+    }
+}
+class ConsoleLogger {
+    log() {
+        console.log("登录成功");
+    }
+}
+let jim = extendsFn(new PersonAB("jim"), new ConsoleLogger());
+let nnn = jim.name;
+class QQMusic {
+    constructor(arg) {
+        this.arg = arg;
+        this.props = arg;
+    }
+    info() {
+        return {
+            url: this.props.url,
+            content: this.props.content,
+            title: this.props.title
+        };
+    }
+}
+const content = {
+    url: 'http://www.abc.com',
+    content: 'a long text',
+    title: 'Well'
+};
+console.log(new QQMusic(content).info());
