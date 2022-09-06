@@ -528,3 +528,38 @@ const content = {
     title: 'Well'
 };
 console.log(new QQMusic(content).info());
+function create(c) {
+    return new c();
+}
+class BeeKeeper {
+    constructor() {
+        this.hasMask = true;
+    }
+}
+class ZooKeeper {
+    constructor() {
+        this.nametag = 'Boss';
+    }
+}
+class Animal22 {
+    constructor() {
+        this.numLegs = 12;
+    }
+}
+class Bee extends Animal22 {
+    constructor() {
+        super(...arguments);
+        this.keeper = new BeeKeeper();
+    }
+}
+class Lion extends Animal22 {
+    constructor() {
+        super(...arguments);
+        this.keeper = new ZooKeeper();
+    }
+}
+function createInstance(cc) {
+    return new cc();
+}
+console.log(createInstance(Lion).keeper.nametag);
+console.log(createInstance(Bee).keeper.hasMask);

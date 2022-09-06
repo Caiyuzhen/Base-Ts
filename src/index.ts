@@ -705,7 +705,7 @@ abstract class Department {
 //子类继承抽象类
 class DesignDep extends Department {
 	constructor(){
-		super('design')
+		super('design') //🔥相当于传入 name
 	}
 	printMeeting(): void {
 		console.log(this.name) //= design
@@ -715,7 +715,7 @@ class DesignDep extends Department {
 new DesignDep().printMeeting()
 
 
-let lalala: Department //🔥🔥🔥用抽象类来【规定形状】, 比如会规定【🔥只能有】 name 、pringName()方法、 pringMeeting()方法！！【🔥抽象类中没有的方法都不能自己定义！！】
+let lalala: Department //🔥🔥🔥用抽象类来【规定形状】, 比如会规定【🔥只能有】 name 、printName()方法、 printMeeting()方法！！【🔥抽象类中没有的方法都不能自己定义！！】
 
 
 
@@ -1667,3 +1667,105 @@ const content = {
 }
 
 console.log(new QQMusic(content).info())
+
+
+// class Point2 {
+// 	x: number
+// 	y: number
+// 	constructor(x: number, y: number){
+// 		this.x = x
+// 		this.y = y
+// 	}
+// }
+
+
+
+//⚡️三十二、 用【类】来约束范型
+/*
+	👇表示参数 c 的类型是 { new():T }  也就是一个【🔥对象类型】
+		这个对象有 new(), 所以是个【构造方法】
+			所以这个对象的【范型】 :T 是【实例之后】的【对象】的【类型】, 
+				所以要通过 new() 来【实例化】这个对象, 来符合 { new():T } 的类型
+
+*/
+//🔥例子一
+function create<T>( c:{ new():T; } ): T {
+	return new c()
+}
+
+
+
+
+
+//🔥例子二，写法一，constructor：
+// class Beekeeper {
+// 	constructor(hasMask: boolean = false){  //🔥🔥【父类】有传入默认参数时候, 【子类】继承它就不用在 super() 内传入默认参数了！
+// 		hasMask
+// 	}
+// }
+
+// class Zookeeper {
+// 	constructor(nameTag: string = 'Jimmy'){  //🔥🔥【父类】有传入默认参数时候, 【子类】继承它就不用在 super() 内传入默认参数了！
+// 		nameTag
+// 	}
+// }
+
+// class Animal000 {
+// 	constructor(numLeg: number = 100){ //🔥🔥【父类】有传入默认参数时候, 【子类】继承它就不用在 super() 内传入默认参数了！
+// 		numLeg //多少条腿
+// 	}
+// }
+
+
+// class Bee extends Animal000 {
+// 	constructor(keeper: Beekeeper){
+// 		super() //Animal 类的 super
+// 	}
+// }
+
+// class Lion extends Animal000 {
+// 	constructor(keeper: Zookeeper){
+// 		super() //Animal 类的 super
+// 	}
+// }
+
+// //类型约束, 约束 T 一定是 Animal000, c 会返回一个实例对象, 根据这个实例对象的类型来确定 T 的类型
+// function createInstance<T extends Animal000>(c: new() => T ) : T {
+// 	return new c()
+// }
+
+// createInstance(Lion)
+
+
+//🔥例子二，写法二，写死数据：
+class BeeKeeper {
+    hasMask: boolean = true;
+}
+
+class ZooKeeper {
+    nametag: string = 'Boss';
+}
+
+class Animal22 {
+    numLegs: number = 12;
+}
+
+//下面两个是要分别实例化然后传入函数的类
+class Bee extends Animal22 {
+    keeper: BeeKeeper = new BeeKeeper();
+}
+
+class Lion extends Animal22 {
+    keeper: ZooKeeper = new ZooKeeper();
+}
+
+/*
+	类型约束, 约束 T 一定是 Animal000 动物
+		然后 cc 会返回一个实例对象, 根据这个实例对象的类型来确定 T 的类型, 【cc 的类型由它的实例所决定】比如 Keeper 是谁
+*/
+function createInstance<T extends Animal22>(cc: new () => T) : T {
+    return new cc();
+}
+
+console.log(createInstance(Lion).keeper.nametag)
+console.log(createInstance(Bee).keeper.hasMask)
