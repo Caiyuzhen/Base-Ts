@@ -1769,3 +1769,66 @@ function createInstance<T extends Animal22>(cc: new () => T) : T {
 
 console.log(createInstance(Lion).keeper.nametag)
 console.log(createInstance(Bee).keeper.hasMask)
+
+
+
+
+
+//⚡️三十三、元组：表示一组【已知数量】跟【类型】的数组
+let x : [string, number] //确定了【类型】的【顺序】
+
+//👇赋值
+x = ['hello', 10]
+x.push('world')
+x.push(299)
+//push 进去的数组是 => ['hello', 10, 'world', 299]
+// x= [10,'world'] //报错，因为类型不对
+// x.push(false) //不能 push 非 string, number 类型的值
+
+
+//👇取值
+console.log(x)
+console.log(x[0].substring(2)) //🔥substring(2) 表示从第二个开始截取
+
+
+// let list1:number[] = [1,2,3] 数组的写法
+// let y : [boolean, number] 元组的写法
+
+//👇可选的元素
+const list : [number, string, boolean?] = [1, '2'] //🔥const 定义元组需要定义初始值，let 定义则不用， ? 【问号】表示元素可选填入初始值
+//const 需要定义初始值！
+
+
+//🌟元组的应用场景:
+
+
+//在函数中：
+//👇元组结合【拓展运算符】的写法:
+declare function test09(arg1: number, arg2: string, arg3: boolean): void 
+
+//👇原始的写法: 
+declare function test08(...args:[ number, string, boolean]): void  //用 declare 定义一个函数的类型（全局变量，声明文件，不实用现此函数）
+
+
+
+//在数组中(可以不限制长度)：
+//👇元组结合【拓展运算符】的写法:
+let list998 : [boolean, ...number[]] = [true, 1,2,3]
+let list888 : [number, ...string[]] = [12, 'well', 'done' ]
+
+
+
+
+//⚡️三十二、通过声明文件引入 jQuery 包
+//👇在 <script> 内引用好 jQuery 路径后, 🔥还需要在此处定义一个全局类型的【jQuery 变量】，这样就可以在任何地方使用 jQuery 了
+//👇另一种写法是写在 src -> types 文件夹下的 index.d.ts 文件中（记得前提是已经在 tsconfig.json 中配置 "include": ["src/**/*"]）
+// declare let jQuery: (param: string) => void
+console.log(jQuery('#box'))
+foo = 12
+console.log(foo);
+
+
+
+
+
+

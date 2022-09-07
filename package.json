@@ -1,0 +1,25 @@
+{
+  "name": "base-ts",
+  "version": "1.0.0",
+  "description": "Base Ts exercise",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Caiyuzhen/Base-Ts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Caiyuzhen/Base-Ts/issues"
+  },
+  "homepage": "https://github.com/Caiyuzhen/Base-Ts#readme",
+  "devDependencies": {
+    "vite": "^3.1.0"
+  },
+  "dependencies": {}
+}

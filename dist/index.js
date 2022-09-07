@@ -563,3 +563,15 @@ function createInstance(cc) {
 }
 console.log(createInstance(Lion).keeper.nametag);
 console.log(createInstance(Bee).keeper.hasMask);
+let x;
+x = ['hello', 10];
+x.push('world');
+x.push(299);
+console.log(x);
+console.log(x[0].substring(2));
+const list = [1, '2'];
+let list998 = [true, 1, 2, 3];
+let list888 = [12, 'well', 'done'];
+console.log(jQuery('#box'));
+foo = 12;
+console.log(foo);

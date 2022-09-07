@@ -1,8 +1,9 @@
 {
-"include": [//(类似文件夹)
+  "include": [//(类似文件夹)
     "./src/**/*" //**表示指定 src 下【任意目录】下的【任意文件】都会被 tsc 自动编译
   ],//include 用来指定哪些 ts 文件需要被编译, /** 为任意目录， /* 为任意文件
   "exclude": [
+	"node_modules",
     //默认值为 ["node_modules","bower_components","jspm_packages"]
   ],
   "files": [//(类似单个文件)
@@ -106,6 +107,10 @@
 
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true   
+	                              /* Skip type checking all .d.ts files. */
   }
 }
+
+
+
