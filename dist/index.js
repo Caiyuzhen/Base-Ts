@@ -274,7 +274,7 @@ class ABC {
 ABC.stand = 'hello';
 let KKK;
 KKK = new ABC('haha');
-let greet002 = new ABC('best');
+const greet002 = new ABC('best');
 greet002.greet();
 let LLL = ABC;
 LLL.stand = "well";
@@ -573,5 +573,10 @@ const list = [1, '2'];
 let list998 = [true, 1, 2, 3];
 let list888 = [12, 'well', 'done'];
 console.log(jQuery('#box'));
-foo = 12;
-console.log(foo);
+kooo = false;
+function greet(greeting) {
+    console.log(greeting);
+}
+greet('字符串');
+myLib.makeGreeting('hello');
+myLib.numberOfGreeting;

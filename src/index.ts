@@ -1,3 +1,5 @@
+/* eslint-disable */
+// ./src/type/index.d.ts
 /*
 	ts 
 		What?
@@ -744,7 +746,7 @@ KKK = new ABC('haha')  //实例化 KKK
 
 
 //用类本来来定义类型, 写法二
-let greet002 : ABC = new ABC('best')
+const greet002 : ABC = new ABC('best')
 greet002.greet()
 
 
@@ -1820,13 +1822,28 @@ let list888 : [number, ...string[]] = [12, 'well', 'done' ]
 
 
 //⚡️三十二、通过声明文件引入 jQuery 包
+
+//引入全局 jQuery 包
 //👇在 <script> 内引用好 jQuery 路径后, 🔥还需要在此处定义一个全局类型的【jQuery 变量】，这样就可以在任何地方使用 jQuery 了
 //👇另一种写法是写在 src -> types 文件夹下的 index.d.ts 文件中（记得前提是已经在 tsconfig.json 中配置 "include": ["src/**/*"]）
 // declare let jQuery: (param: string) => void
 console.log(jQuery('#box'))
-foo = 12
-console.log(foo);
 
+
+//引用全局定义好的变量
+kooo = false;
+
+
+
+//引用全局定义好的函数
+function greet(greeting: string) {
+	console.log(greeting);
+}
+greet('字符串')
+
+
+myLib.makeGreeting('hello')
+myLib.numberOfGreeting
 
 
 

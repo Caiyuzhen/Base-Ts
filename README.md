@@ -22,3 +22,14 @@
 安装全局依赖时才会在顶部添加 /// 三斜线的声明, 比如
 * /// <reference types="someLib" />
 * function getThing(): someLib.thing;
+
+
+### 带属性的对象
+
+
+### 忽略类型检查
+/* eslint-disable */
+
+
+### 声明文件的使用
+// ./src/type/index.d.ts
