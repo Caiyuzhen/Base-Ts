@@ -56,6 +56,10 @@ let person = {
     name: 'John',
     sex: 'male',
 };
+function isColorPanel(x) {
+    console.log(x);
+}
+isColorPanel({ color: 'red' });
 let list1 = [1, 2, 3];
 let list2 = [1, 2, 3, 'well'];
 list1.push(5);
@@ -589,3 +593,111 @@ let abbkk;
 function fn288(x) {
     x();
 }
+var Direction;
+(function (Direction) {
+    Direction[Direction["Up"] = 1] = "Up";
+    Direction[Direction["Down"] = 2] = "Down";
+    Direction[Direction["Left"] = 3] = "Left";
+    Direction[Direction["Right"] = 4] = "Right";
+})(Direction || (Direction = {}));
+console.log(Direction.Up);
+var Direction1;
+(function (Direction1) {
+    Direction1[Direction1["Up"] = 0] = "Up";
+    Direction1[Direction1["Down"] = 1] = "Down";
+    Direction1[Direction1["Left"] = 2] = "Left";
+    Direction1[Direction1["Right"] = 3] = "Right";
+})(Direction1 || (Direction1 = {}));
+console.log(Direction1);
+const Direction2 = {
+    Up: 1,
+    Down: 2,
+    left: 3,
+    Right: 4
+};
+console.log(Direction2.Up);
+var Response2;
+(function (Response2) {
+    Response2[Response2["No"] = 0] = "No";
+    Response2[Response2["Yes"] = 1] = "Yes";
+})(Response2 || (Response2 = {}));
+function respond(recipient, message) {
+}
+respond("aha", Response2.Yes);
+function getSomeValue() {
+    return 200;
+}
+var G;
+(function (G) {
+    G[G["A"] = 0] = "A";
+    G[G["B"] = getSomeValue()] = "B";
+})(G || (G = {}));
+console.log(G);
+var E;
+(function (E) {
+    E[E["A"] = 0] = "A";
+    E[E["B"] = getSomeValue()] = "B";
+    E[E["C"] = 6] = "C";
+    E[E["D"] = 'abcd'.length] = "D";
+})(E || (E = {}));
+console.log(E);
+var Z;
+(function (Z) {
+    Z["Up"] = "UP";
+    Z["Down"] = "DOWN";
+    Z["Left"] = "LEFT";
+    Z["Right"] = "RIGHT";
+})(Z || (Z = {}));
+console.log(Z.Up, Z.Down, Z.Left, Z.Right);
+var FileAccess;
+(function (FileAccess) {
+    FileAccess[FileAccess["None"] = 0] = "None";
+    FileAccess[FileAccess["Read"] = 2] = "Read";
+    FileAccess[FileAccess["Think"] = 24] = "Think";
+    FileAccess[FileAccess["Write"] = 4] = "Write";
+    FileAccess[FileAccess["ReadWrite"] = 6] = "ReadWrite";
+    FileAccess[FileAccess["G"] = '123'.length] = "G";
+})(FileAccess || (FileAccess = {}));
+console.log(FileAccess);
+var ShapeKind;
+(function (ShapeKind) {
+    ShapeKind[ShapeKind["Circle"] = 0] = "Circle";
+    ShapeKind[ShapeKind["Square"] = 1] = "Square";
+})(ShapeKind || (ShapeKind = {}));
+let angle = {
+    kind: ShapeKind.Circle,
+    radius: 180,
+};
+console.log(angle);
+var isFishData;
+(function (isFishData) {
+    isFishData[isFishData["FishFins"] = 0] = "FishFins";
+    isFishData[isFishData["Limbs"] = 1] = "Limbs";
+})(isFishData || (isFishData = {}));
+function isACat(x) {
+    if (x === isFishData.FishFins) {
+        console.log('this is a fish');
+    }
+    else {
+        console.log('this is not a cat');
+    }
+}
+isACat(isFishData.Limbs);
+var E1;
+(function (E1) {
+    E1[E1["X"] = 0] = "X";
+    E1[E1["Y"] = 1] = "Y";
+    E1[E1["Z"] = 2] = "Z";
+})(E1 || (E1 = {}));
+function f(obj) {
+    console.log(obj.Y);
+    return obj.Y;
+}
+f(E1);
+let gameDire = [
+    0,
+    1,
+    2,
+    3,
+];
+console.log(gameDire);

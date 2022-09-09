@@ -224,7 +224,7 @@ console.log(test5(10))
 
 
 
-/* ⚡️十二、接口 interface, 是对于【对象】形状的描述, 对类的一部分行为做抽象, 作用跟对象的类型别名一样 ————————————————————————————————————————————
+/* ⚡️十二、接口 interface, 是对于【🔥对象】形状的描述, 对类的一部分行为做抽象, 作用跟对象的类型别名一样 ————————————————————————————————————————————
 		interface 实例的属性不可多也不可少
 		readonly 表示只读属性
 		可以用 ？, ? 问号表示可选属性，可有可无
@@ -245,6 +245,18 @@ let person: Person = {
 
 // person.id = 1234 //因为上面让 id 为只读，所以再赋值会报错
 
+
+
+//🔥🔥🔥接口应用在函数内
+interface IES {
+	color: string
+}
+
+function isColorPanel(x: IES) : void{
+	console.log(x);
+}
+
+isColorPanel({color: 'red'})//传入一个【对象】, 这个对象需要符合 【IES 接口】所定义的【形状】
 
 
 
@@ -1513,7 +1525,7 @@ class MinClass<T> {
 
 
 
-//⚡️三十、范型约束 & 在范型内使用类型参数(保证范型身上有某些属性)
+//⚡️三十、范型约束 & 在范型内使用类型参数(保证范型身上有某些属性) ————————————————————————————————————————————
 
 //范型约束 
 //场景：要取得 length 值
@@ -1597,7 +1609,7 @@ console.log(getProperty(xx, 'b'))
 
 
 
-//⚡️三十一、多重范型约束 & 交叉类型
+//⚡️三十一、多重范型约束 & 交叉类型 ————————————————————————————————————————————
 //& 表示【🔥交叉类型】, 同时具备两种类型的特性！
 
 
@@ -1692,7 +1704,7 @@ console.log(new QQMusic(content).info())
 
 
 
-//⚡️三十二、 用【类】来约束范型
+//⚡️三十二、 用【类】来约束范型 ————————————————————————————————————————————
 /*
 	👇表示参数 c 的类型是 { new():T }  也就是一个【🔥对象类型】
 		这个对象有 new(), 所以是个【构造方法】
@@ -1786,7 +1798,7 @@ console.log(createInstance(Bee).keeper.hasMask)
 
 
 
-//⚡️三十三、元组：表示一组【已知数量】跟【类型】的数组
+//⚡️三十三、元组：表示一组【已知数量】跟【类型】的数组 ————————————————————————————————————————————
 let x : [string, number] //确定了【类型】的【顺序】
 
 //👇赋值
@@ -1831,7 +1843,7 @@ let list888 : [number, ...string[]] = [12, 'well', 'done' ]
 
 
 
-//⚡️三十二、通过声明文件引入 jQuery 包
+//⚡️三十四、通过声明文件引入 jQuery 包 ————————————————————————————————————————————
 
 //引入全局 jQuery 包
 //👇在 <script> 内引用好 jQuery 路径后, 🔥还需要在此处定义一个全局类型的【jQuery 变量】，这样就可以在任何地方使用 jQuery 了
@@ -1878,7 +1890,7 @@ console.log(whoName)
 
 
 
-//⚡️三十三、声明文件的规范
+//⚡️三十五、声明文件的规范 ————————————————————————————————————————————
 //Boolean、Number String 等大写的方式系统内置的类型，我们要定义应该用小写
 let abbkk : boolean
 
@@ -1891,3 +1903,217 @@ function fn288(x:() => void){
 //【函数】的【参数】是函数，那么这就是一个【回调函数】
 declare function wellOK(x: () => void, timeout ? : number) : void 
 declare function beforeAll(action: () => void) : void
+
+
+
+
+//⚡️三十六、枚举 ————————————————————————————————————————————
+/*
+	是什么？
+		枚举是一组【带有名字】的【🌟常量】对象, 通常这几个数据之间是有关联的
+		跟类比较相似，不仅定义【类型】，还定义了具体的【值】
+		🔥【枚举类型】可以作为【class 类型】
+	
+	有什么枚举类型？
+		【数字枚举】,值会自动累加具有【连续性】，可以手动传入初始值
+		【类型枚举】
+		【计算枚举】,值为函数的返回值或一个表达式
+		【异构枚举】,混合【字符串】和【数字】的枚举结构，注意排序问题
+		【字符串枚举】, 含字符串成员的枚举不能使用【计算的枚举值】
+		【接口类型枚举】
+
+*/ 
+//🌟有定义初始值的枚举数据
+enum Direction {
+	Up = 1,
+	Down = 2,
+	Left = 3,
+	Right =4
+}
+console.log(Direction.Up) //1
+
+
+
+
+//🌟没有定义初始值的枚举数据, 默认从 0 开始自增长
+enum Direction1 {
+	Up,
+	Down,
+	Left,
+	Right
+}
+console.log(Direction1) //0,1,2,3
+
+
+//过往的做法并没法保证枚举的值是唯一的，因为可以再去改变值
+const Direction2 = {
+	Up: 1,
+	Down: 2,
+	left: 3,
+	Right: 4
+}
+console.log(Direction2.Up) //1
+
+
+
+
+
+//🌟类型枚举
+enum Response2 {
+	No = 0,
+	Yes = 1,
+}
+
+function respond(recipient: string, message: Response2) :void {
+	//...
+}
+respond("aha",Response2.Yes)
+
+
+
+
+//🌟计算枚举
+function getSomeValue() :number {
+	return 200
+}
+
+enum G {
+	A, //不带初始化参数的枚举值需要放在【计算枚举值】的前面！
+	B = getSomeValue(),//函数返回值
+}
+console.log(G);
+
+
+
+
+//🌟混合枚举
+enum E {
+	A, //排序 0 
+	B = getSomeValue(),//排序 4
+	C = 3 * 2, //排序 3
+	D = 'abcd'.length ///排序 2
+}
+console.log(E);
+
+
+
+
+//🌟字符串枚举, 含字符串成员的枚举不能使用【计算的枚举值】
+enum Z {
+	Up = 'UP',
+	Down = 'DOWN',
+	Left = 'LEFT',
+	Right = 'RIGHT',
+	// Top = getSomeValue()//🌟会报错
+}
+console.log(Z.Up, Z.Down, Z.Left, Z.Right) //UP DOWN LEFT RIGHT);
+
+
+
+
+//🌟计算值与常量枚举
+enum FileAccess {
+	None,
+	Read = 1 << 1,//结果为2    0000 0001 -> 0000 0010    //转化为二进制后, 向左偏移 1 位, 2
+	Think = 6 << 2,//结果为   0000 0110 -> 0001 1000    //转化为二进制后, 向左偏移 1 位, 16 + 8 = 24
+	Write = 1 << 2,//结果为4   0000 0001 -> 0000 0100    //转化为二进制后, 向左偏移 2 位, 2 * 2 = 4
+	ReadWrite = Read | Write, //6, 按位或
+	G = '123'.length
+}
+console.log(FileAccess);
+
+
+
+
+//🌟作为【接口类型】的枚举成员
+enum ShapeKind {
+	Circle, //0 或 Circle 类型
+	Square, //1 或 Square 类型
+}
+
+interface Circle {
+	kind: ShapeKind.Circle,//使用【枚举值（或叫枚举成员）】来当作【类型】
+	radius: number,
+}
+
+interface Square {
+	Kind: ShapeKind.Square,
+	sideLength: number,
+}
+
+let angle: Circle = {
+	kind: ShapeKind.Circle, //枚举值为 0
+	radius: 180,
+}
+console.log(angle);
+
+
+
+//🌟根据枚举值判断枚举条件
+enum isFishData {
+	FishFins,
+	Limbs,
+}
+
+function isACat(x: isFishData) : void{//🔥用【枚举类型】, 来作为判断条件
+	if(x === isFishData.FishFins) {
+		console.log('this is a fish');
+	}else{
+		console.log('this is not a cat');
+	}
+}
+
+isACat(isFishData.Limbs)//跟接口的差别是, 枚举值可以【直接传入函数】, 而接口需要【通过{对象}来传入函数】
+
+
+
+
+//🌟运行时的枚举, 会被编译成对象, 可以当作对象来使用
+enum E1 {
+	X, Y, Z //0,1,2
+}
+
+function f(obj: {Y: number}) { //相当于传入了【枚举对象】, 里边有个值 X 为 number
+	console.log(obj.Y)
+	return obj.Y //枚举值 X 为 0
+}
+
+f(E1)//🔥🔥注意，如果通过 【const 声明】的话, enum 就没法作为【值】传入了
+
+
+
+
+
+
+//🌟const 枚举, 会在编译阶段【被删除】, 相当于赋值使用后就废弃, 不能包含计算成员, 不能包含初始化函数
+const enum ObjData {
+	Up,
+	Down,
+	Left,
+	Right,
+}
+
+let gameDire: ObjData[] = [
+	ObjData.Up,
+	ObjData.Down,
+	ObjData.Left,
+	ObjData.Right,
+]
+
+console.log(gameDire) // [0, 1, 2, 3]
+// console.log(ObjData) //🔥🔥因为是用 const 生命的枚举值, 所以编译后会【被删除】，所以这里会报错！
+
+
+
+
+
+//🌟外部枚举
+declare enum abcData {
+	A = 1,
+	B = A * 2,
+	C = 3
+}
+
+// console.log(abcData)
+
+
