@@ -573,10 +573,19 @@ const list = [1, '2'];
 let list998 = [true, 1, 2, 3];
 let list888 = [12, 'well', 'done'];
 console.log(jQuery('#box'));
-kooo = false;
 function greet(greeting) {
     console.log(greeting);
 }
 greet('字符串');
-myLib.makeGreeting('hello');
-myLib.numberOfGreeting;
+console.log(window.myLib);
+let GreetingSetting01 = {
+    greeting: "hello",
+    duration: 456,
+    color: 'blue'
+};
+let whoName = 'Tom';
+console.log(whoName);
+let abbkk;
+function fn288(x) {
+    x();
+}

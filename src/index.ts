@@ -1,5 +1,15 @@
 /* eslint-disable */
-// ./src/type/index.d.ts
+
+// import {	
+	// kooo,
+// 	nnnkkk,
+// 	greet,
+// 	myLib,
+// 	getWidget,
+// 	GreetingSettings,
+// 	ABCGreeting,
+	// DDD
+//  } from '../types/'
 /*
 	ts 
 		What?
@@ -1831,7 +1841,8 @@ console.log(jQuery('#box'))
 
 
 //引用全局定义好的变量
-kooo = false;
+// window.kooo = false;
+// console.log(kooo)
 
 
 
@@ -1842,10 +1853,41 @@ function greet(greeting: string) {
 greet('字符串')
 
 
-myLib.makeGreeting('hello')
-myLib.numberOfGreeting
+//myLib 
+console.log(window.myLib)
+
+
+
+//函数重载
+// let XXX: boolean = getWidget(288)
+// let YYY: number[] = getWidget('Haha')
+
+
+//使用所声明的接口
+let GreetingSetting01: GreetingSettings = {
+	greeting : "hello",
+	duration : 456,
+	color: 'blue'
+}
+
+
+//使用所声明的【类型别名】
+let whoName: ABCGreeting = 'Tom'
+console.log(whoName)
 
 
 
 
+//⚡️三十三、声明文件的规范
+//Boolean、Number String 等大写的方式系统内置的类型，我们要定义应该用小写
+let abbkk : boolean
 
+//没有返回值应该写为 void，而不是 any，比如回调函数没有返回值
+function fn288(x:() => void){
+	x()
+}
+
+
+//【函数】的【参数】是函数，那么这就是一个【回调函数】
+declare function wellOK(x: () => void, timeout ? : number) : void 
+declare function beforeAll(action: () => void) : void
